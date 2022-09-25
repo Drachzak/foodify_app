@@ -14,7 +14,7 @@ class FavoritePage extends StatefulWidget {
 
 class _FavoritePageState extends State<FavoritePage> {
   int currentIndex = 0;
-  String category = "Seafood";
+  String category = "Items";
   ResponseFilter? responseFilter;
   bool isLoading = true;
   var db = DBHelper();
@@ -22,7 +22,7 @@ class _FavoritePageState extends State<FavoritePage> {
   void fetchDataMeals() async {
     var data = await db.gets(category);
     setState(() {
-      responseFilter = ResponseFilter(meals: data);
+      responseFilter = ResponseFilter(items: data);
       isLoading = false;
     });
   }
@@ -36,10 +36,10 @@ class _FavoritePageState extends State<FavoritePage> {
 
   @override
   Widget build(BuildContext context) {
-    var listNav = [listMeals(responseFilter), listMeals(responseFilter)];
+    var listNav = [listItems(responseFilter), listItems(responseFilter)];
     return Scaffold(
       appBar: AppBar(
-        title: Text('Favorite Recipe'),
+        title: Text('Favorite Items'),
         backgroundColor: Colors.amber,
       ),
       body: Center(
@@ -47,21 +47,20 @@ class _FavoritePageState extends State<FavoritePage> {
             ? listNav[currentIndex]
             : CircularProgressIndicator(),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.amber,
-        currentIndex: currentIndex,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.fastfood), label: "Seafood"),
-          BottomNavigationBarItem(icon: Icon(Icons.cake), label: "Dessert"),
-        ],
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-            index == 0 ? category = "Seafood" : category = "Dessert";
-          });
-          fetchDataMeals();
-        },
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   selectedItemColor: Colors.amber,
+      //   currentIndex: currentIndex,
+      //   items: <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(icon: Icon(Icons.table_chart), label: "Items"),
+      //   ],
+      //   onTap: (index) {
+      //     setState(() {
+      //       currentIndex = index;
+      //       index == 0 ? category = "Items" : category;
+      //     });
+      //     fetchDataMeals();
+      //   },
+      // ),
     );
   }
 }

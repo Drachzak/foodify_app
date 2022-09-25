@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget itemMeals(String? idMeals, String? nameMeals, String? urlImage) {
+Widget itemOutfit(String? id, String? title, String? image) {
   return Padding(
     padding: EdgeInsets.all(8),
     child: Stack(
@@ -8,9 +8,9 @@ Widget itemMeals(String? idMeals, String? nameMeals, String? urlImage) {
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Hero(
-            tag: idMeals!,
+            tag: id!,
             child: Image.network(
-              urlImage!,
+              image!,
               height: 230,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -21,7 +21,7 @@ Widget itemMeals(String? idMeals, String? nameMeals, String? urlImage) {
           left: 10,
           bottom: 15,
           child: Text(
-            nameMeals!,
+            title!,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               color: Colors.white,

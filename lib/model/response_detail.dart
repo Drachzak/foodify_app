@@ -5,16 +5,16 @@ ResponseDetail responseDetailFromJson(String string) =>
 
 
 class ResponseDetail {
-  late List<Map<String, dynamic>>meals;
+  late List<Map<String, dynamic>>items;
 
-  ResponseDetail({required this.meals});
+  ResponseDetail({required this.items});
 
   factory ResponseDetail.fromJson(Map<String, dynamic> json) =>
-      ResponseDetail(meals: List<Map<String, dynamic>>.from(json["meals"].map((x)=>
+      ResponseDetail(items: List<Map<String, dynamic>>.from(json["meals"].map((x)=>
           Map.from(x).map((key, value) => MapEntry<String,dynamic>(key, value == null ? null : value)))));
 
   Map<String,dynamic> toJson() => {
-        "meals": List<dynamic>.from(meals.map((e) =>
+        "items": List<dynamic>.from(items.map((e) =>
           Map.from(e).map(
                   (key, value) =>
                       MapEntry<String, dynamic>(key, value == null ? null : value))))

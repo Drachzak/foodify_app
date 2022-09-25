@@ -4,19 +4,19 @@ import 'package:restaurant_app/page/detail_page.dart';
 import 'item_meal.dart';
 import 'dart:io';
 
-Widget listMeals(ResponseFilter? responseFilter){
+Widget listItems(ResponseFilter? responseFilter){
   if(responseFilter == null){
     return Container();
   }
   return ListView.builder(
-    itemCount: responseFilter.meals?.length,
+    itemCount: responseFilter.items?.length,
       itemBuilder: (context, index){
-      var itemMeal = responseFilter.meals?[index];
+      var itemMeal = responseFilter.items?[index];
       return InkWell(
         splashColor: Colors.lightBlue,
-        child: itemMeals (itemMeal?.idMeal, itemMeal?.strMeal, itemMeal?.strMealThumb),
+        child: itemOutfit (itemMeal?.id, itemMeal?.title, itemMeal?.image),
         onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(idMeal: itemMeal?.idMeal ?? "",)));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(id: itemMeal?.id ?? "",)));
         },
       );
       });

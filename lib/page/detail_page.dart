@@ -7,9 +7,9 @@ import 'package:restaurant_app/model/response_detail.dart';
 import 'package:http/http.dart' as http;
 
 class DetailPage extends StatefulWidget {
-  final String idMeal;
+  final String id;
 
-  DetailPage({required this.idMeal});
+  DetailPage({required this.id});
 
   @override
   _DetailPageState createState() => _DetailPageState();
@@ -24,8 +24,8 @@ class _DetailPageState extends State<DetailPage> {
   Future<ResponseDetail?> fetchDetail() async {
     try {
       var res = await http.get(Uri.parse(
-          'https://www.themealdb.com/api/json/v1/1/lookup.php?i=${widget.idMeal}'));
-      isFavorite = await db.isFavorite(widget.idMeal);
+          'https://fakestoreapi.com/products${widget.id}'));
+      isFavorite = await db.isFavorite(widget.id);
       print("Favorite : $isFavorite");
       if (res.statusCode == 200) {
         Map<String, dynamic> json = jsonDecode(res.body);
@@ -48,12 +48,13 @@ class _DetailPageState extends State<DetailPage> {
 
   setFavorite() async {
     var db = DBHelper();
-    Meal favorite = Meal(
-      idMeal: dataDetail.meals[0]['idMeal'],
-      strMeal: dataDetail.meals[0]['strMeal'],
-      strMealThumb: dataDetail.meals[0]['strMealThumb'],
-      strInstructions: dataDetail.meals[0]['strInstructions'],
-      strCategory: dataDetail.meals[0]['strCategory'],
+    Items favorite = Items(
+      id: dataDetail.items[0]['id'],
+      title: dataDetail.items[0]['title'],
+      price: dataDetail.items[0]['price'],
+      description: dataDetail.items[0]['description'],
+      category: dataDetail.items[0]['category'],
+      image: dataDetail.items[0]['image'],
     );
     if (!isFavorite) {
       await db.insert(favorite);
@@ -77,7 +78,7 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detail Resep Makanan'),
+        title: Text('Detail Item'),
         actions: <Widget>[
           IconButton(
             onPressed: () {
@@ -106,9 +107,9 @@ class _DetailPageState extends State<DetailPage> {
                       child: Hero(
                         child: Material(
                           child: Image.network(
-                              dataDetail.meals[0]['strMealThumb']),
+                              dataDetail.items[0]['image']),
                         ),
-                        tag: '${dataDetail.meals[0]['idMeal']}',
+                        tag: '${dataDetail.items[0]['id']}',
                       ),
                     ),
                     onTap: () {
@@ -118,19 +119,19 @@ class _DetailPageState extends State<DetailPage> {
                   Padding(
                     padding: EdgeInsets.all(8),
                     child: Center(
-                      child: Text('${dataDetail.meals[0]['strMeal']}'),
+                      child: Text('${dataDetail.items[0]['title']}'),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(8),
                     child: Center(
-                      child: Text('Instructions'),
+                      child: Text('Description'),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(8),
                     child: Center(
-                      child: Text('${dataDetail.meals[0]['strInstructions']}'),
+                      child: Text('${dataDetail.items[0]['description']}'),
                     ),
                   ),
                 ],

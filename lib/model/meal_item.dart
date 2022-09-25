@@ -1,36 +1,39 @@
-import 'package:flutter/material.dart';
 
 
-class Meal {
-  Meal({
-  this.idMeal,
-  this.strMeal,
-  this.strInstructions,
-  this.strMealThumb,
-  this.strCategory,
+class Items {
+  Items({
+  this.id,
+  this.title,
+  this.price,
+  this.description,
+  this.category,
+  this.image,
 });
-  String? idMeal;
-  String? strMeal;
-  String? strInstructions;
-  String? strMealThumb;
-  String? strCategory;
+  String? id;
+  String? title;
+  String? price;
+  String? description;
+  String? category;
+  String? image;
 
-  factory Meal.fromJson(Map<String,dynamic> json) => Meal(
-    idMeal: json["idMeal"],
-    strMeal: json["strMeal"],
-    strInstructions: json["strInstructions"],
-    strMealThumb: json["strMealThumb"],
-    strCategory: json["strCategory"],
+  factory Items.fromJson(Map<String,dynamic> json) => Items(
+    id: json["id"],
+    title: json["title"],
+    price: json["price"],
+    description: json["description"],
+    category: json["category"],
+    image: json["image"],
   );
 
   Map<String,dynamic> toJson()=> {
-    "idMeal" : idMeal,
-    "strMeal" : strMeal,
-    "strInstructions" : strInstructions,
-    "strMealThumb" : strMealThumb,
-    "strCategory" : strCategory,
+    "id" : id,
+    "title" : title,
+    "price" : price,
+    "description" : description,
+    "category" : category,
+    "image" : image,
   };
   void setFavoritesId(String id){
-    idMeal = id;
+    id = id;
   }
 }

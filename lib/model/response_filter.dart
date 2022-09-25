@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
-
 import 'meal_item.dart';
 
 
@@ -12,14 +10,14 @@ String responseFilterToJson(ResponseFilter data) => json.encode(data);
 
 class ResponseFilter{
   ResponseFilter({
-    this.meals
+    this.items
 });
-  List<Meal>? meals;
+  List<Items>? items;
 
   factory ResponseFilter.fromJson(Map<String,dynamic> json) => ResponseFilter(
-    meals: List<Meal>.from(json["meals"].map((e) => Meal.fromJson(e))));
+    items: List<Items>.from(json["items"].map((e) => Items.fromJson(e))));
   
   Map<String, dynamic> toJson() => {
-    "meals" : List<dynamic>.from(meals!.map((e) => e.toJson()))
+    "items" : List<dynamic>.from(items!.map((e) => e.toJson()))
   };
 }

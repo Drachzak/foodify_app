@@ -26,7 +26,7 @@ class DBHelper {
 //5
   setDb() async {
     io.Directory directory = await getApplicationDocumentsDirectory();
-    String path = join(directory.path, "mealsDB");
+    String path = join(directory.path, "itemsDB");
     var DB = await openDatabase(path, version: 1, onCreate: _oncreate);
     return DB;
   }
@@ -34,16 +34,16 @@ class DBHelper {
   //6
   void _oncreate(Database db, int version) async {
     var dbsql =
-        "CREATE TABLE favorite(id INTEGER PRIMARY KEY, idMeal TEXT, strMeal TEXT,"
-        "strInstructions TEXT, strMealThumb TEXT, strCategory TEXT)";
+        "CREATE TABLE favorite(id INTEGER PRIMARY KEY, id TEXT, title TEXT,"
+        "price TEXT, description TEXT, category TEXT, image TEXT)";
     await db.execute(dbsql);
     print('DB Created');
   }
 
 //8
-  Future<int?> insert(Meal meals) async {
+  Future<int?> insert(Items items) async {
     var dbClient = await db;
-    int res = await dbClient!.insert("favorite", meals.toJson()).then((i) {
+    int res = await dbClient!.insert("favorite", items.toJson()).then((i) {
       return 1;
     });
     if (res == 1) {
@@ -52,46 +52,48 @@ class DBHelper {
     return res;
   }
 
-  Future<Meal?> get(String idMeal) async {
+  Future<Items?> get(String idMeal) async {
     var dbClient = await db;
-    var sql = "SELECT * FROM FAVORITE WHERE idMeal=? ORDER BY idMeal DESC";
+    var sql = "SELECT * FROM FAVORITE WHERE id=? ORDER BY id DESC";
     List<Map> list = await dbClient!.rawQuery(sql, [idMeal]);
-    late Meal meals;
+    late Items items;
     if (list.length > 0) {
-      meals = Meal(
-        idMeal: list[0]['idMeal'],
-        strMeal: list[0]['strMeal'],
-        strInstructions: list[0]['strInstructions'],
-        strMealThumb: list[0]['strMealThumb'],
-        strCategory: list[0]['strCategory'],
+      items = Items(
+        id: list[0]['id'],
+        title: list[0]['title'],
+        price: list[0]['price'],
+        description: list[0]['description'],
+        category: list[0]['category'],
+        image: list[0]['image'],
       );
     }
-    return meals;
+    return items;
   }
 
-  Future<List<Meal>> gets (String category) async {
+  Future<List<Items>> gets (String category) async {
     var dbClient = await db;
-    var sql = "SELECT * FROM favorite WHERE  strCategory=? ORDER BY idMeal DESC";
+    var sql = "SELECT * FROM favorite WHERE  category=? ORDER BY id DESC";
     List<Map> list = await dbClient!.rawQuery(sql,[category]);
-    List<Meal> favorites = [];
+    List<Items> favorites = [];
     for (int i = 0; i < list.length; i++){
-      Meal favorite = Meal(
-        idMeal: list[i]['idMeal'],
-        strMeal: list[i]['strMeal'],
-        strInstructions: list[i]['strInstructions'],
-        strMealThumb: list[i]['strMealThumb'],
-        strCategory: list[i]['strCategory'],
+      Items favorite = Items(
+        id: list[i]['id'],
+        title: list[i]['title'],
+        price: list[i]['price'],
+        description: list[i]['description'],
+        category: list[i]['category'],
+        image: list[i]['image'],
       );
-      favorite.setFavoritesId(list[i]['idMeal']);
+      favorite.setFavoritesId(list[i]['id']);
       favorites.add((favorite));
     }
     return favorites;
   }
 
-  Future<int?> delete(Meal meals) async {
+  Future<int?> delete(Items items) async {
     var dbClient = await db;
-    var sql = "DELETE FROM favorite WHERE idMeal = ?";
-    var res = await dbClient!.rawDelete(sql, [meals.idMeal]);
+    var sql = "DELETE FROM favorite WHERE id = ?";
+    var res = await dbClient!.rawDelete(sql, [items.id]);
     print("Favorite data deleted");
     return res;
   }

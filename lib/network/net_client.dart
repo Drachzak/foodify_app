@@ -3,16 +3,14 @@ import 'package:http/http.dart';
 import 'package:restaurant_app/model/response_filter.dart';
 
 class NetClient{
-  String url = "https://www.themealdb.com/api/json/v1/1/";
+  String url = "https://fakestoreapi.com/";
   late String endPoint;
 
 
   Future<ResponseFilter?> fetchDataMeals(int currentIndex) async {
-    if (currentIndex == 0) {
-      endPoint = "filter.php?c=Seafood";
-    } else {
-      endPoint = "filter.php?c=Dessert";
-    }
+     currentIndex == 0;
+      endPoint = "products";
+
     try {
       var res = await get(Uri.parse(url + endPoint));
       if(res.statusCode == 200){
@@ -26,3 +24,5 @@ class NetClient{
     }
   }
 }
+
+//https://www.themealdb.com/api/json/v1/1/"

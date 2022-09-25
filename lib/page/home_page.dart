@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var listNav = [listMeals(responseFilter),listMeals(responseFilter)];
+    var listNav = [listItems(responseFilter),listItems(responseFilter)];
     return Scaffold(
       appBar: AppBar(
         title: Text('Home Page'),
@@ -54,20 +54,19 @@ class _HomePageState extends State<HomePage> {
             ? listNav[currentIndex]
             : CircularProgressIndicator(),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.lightBlue,
-        currentIndex: currentIndex,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.fastfood),label: "Seafood"),
-          BottomNavigationBarItem(icon: Icon(Icons.cake),label: "Dessert"),
-        ],
-        onTap: (index){
-          setState(() {
-            currentIndex = index;
-          });
-          fetchDataMeals();
-        },
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   selectedItemColor: Colors.lightBlue,
+      //   currentIndex: currentIndex,
+      //   items: <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(icon: Icon(Icons.table_chart),label: "Items"),
+      //   ],
+      //   onTap: (index){
+      //     setState(() {
+      //       currentIndex = index;
+      //     });
+      //     fetchDataMeals();
+      //   },
+      // ),
     );
   }
 }
