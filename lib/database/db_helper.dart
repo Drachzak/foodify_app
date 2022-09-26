@@ -57,7 +57,7 @@ class DBHelper {
     var sql = "SELECT * FROM FAVORITE WHERE id=? ORDER BY id DESC";
     List<Map> list = await dbClient!.rawQuery(sql, [idMeal]);
     late Items items;
-    if (list.length > 0) {
+    if (list.isNotEmpty) {
       items = Items(
         id: list[0]['id'],
         title: list[0]['title'],

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_app/model/response_filter.dart';
 import 'package:restaurant_app/page/detail_page.dart';
 import 'item_meal.dart';
-import 'dart:io';
 
 Widget listItems(ResponseFilter? responseFilter){
   if(responseFilter == null){
